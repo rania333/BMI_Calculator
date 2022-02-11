@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:health_app/customButton.dart';
 import 'package:health_app/customCard.dart';
 import 'package:health_app/customChild.dart';
+import 'package:health_app/data.dart';
+import 'package:health_app/resultPage.dart';
 
 const activatedColor = Color.fromARGB(148, 24, 19, 26);
 const activeColor = Color.fromARGB(14, 250, 93, 255);
@@ -153,9 +155,9 @@ class _InputPageState extends State<InputPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CustomButton(
-                              click: () {
+                              onPressed: () {
                                 setState(() {
-                                  weight--;
+                                  weight = weight - 1;
                                 });
                               },
                               icon: Icon(Icons.remove)),
@@ -163,7 +165,7 @@ class _InputPageState extends State<InputPage> {
                             width: 15,
                           ),
                           CustomButton(
-                              click: () {
+                              onPressed: () {
                                 setState(() {
                                   weight++;
                                 });
@@ -197,7 +199,7 @@ class _InputPageState extends State<InputPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CustomButton(
-                              click: () {
+                              onPressed: () {
                                 setState(() {
                                   age--;
                                 });
@@ -207,7 +209,7 @@ class _InputPageState extends State<InputPage> {
                             width: 15,
                           ),
                           CustomButton(
-                              click: () {
+                              onPressed: () {
                                 setState(() {
                                   age++;
                                 });
@@ -221,11 +223,30 @@ class _InputPageState extends State<InputPage> {
               ],
             ),
           ),
-          Container(
-            color: Colors.purple[700],
-            margin: EdgeInsets.only(top: 10),
-            width: double.infinity, //full width
-            height: 60,
+          GestureDetector(
+            onTap: () {
+              ResultData data = ResultData(height: highet, weight: weight);
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => ResultPage(
+                            res: data.calculateBMI(),
+                            status: data.getResult(),
+                            comment: data.getInterpretation(),
+                          )));
+            },
+            child: Container(
+              padding: EdgeInsets.only(top: 15),
+              child: const Text(
+                'Calculate',
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center,
+              ),
+              color: Colors.purple[700],
+              margin: EdgeInsets.only(top: 10),
+              width: double.infinity, //full width
+              height: 60,
+            ),
           )
         ],
       ),

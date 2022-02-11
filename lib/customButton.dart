@@ -2,22 +2,17 @@
 
 import 'package:flutter/material.dart';
 
-class CustomButton extends StatefulWidget {
+class CustomButton extends StatelessWidget {
   // ignore: prefer_const_constructors_in_immutables
-  CustomButton({required this.click, required this.icon});
-  final Function click;
+  CustomButton({required this.onPressed, required this.icon});
+  final VoidCallback onPressed;
   final Widget icon;
 
   @override
-  _CustomButtonState createState() => _CustomButtonState();
-}
-
-class _CustomButtonState extends State<CustomButton> {
-  @override
   Widget build(BuildContext context) {
     return RawMaterialButton(
-      child: widget.icon,
-      onPressed: () => widget.click,
+      child: icon,
+      onPressed: onPressed,
       elevation: 10,
       constraints: const BoxConstraints.tightFor(width: 40, height: 40),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
